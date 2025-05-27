@@ -1,0 +1,12 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+Client/node_modules
+Client/build
+Client/.idea
+
+Backend/target
+Backend/.idea
+
+
+.idea

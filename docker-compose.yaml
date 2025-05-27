@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+    client:
+        build:
+            context: Client
+            dockerfile: Dockerfile
+        ports:
+            - "80:80"
+        container_name: client_pubg
+        depends_on:
+            - backend
+
+    backend:
+        build:
+            context: Backend
+            dockerfile: Dockerfile
+        ports:
+            - 8080:8080
+        container_name: backend_pubg
+        depends_on:
+            - postgres_db
+        environment:
+            SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/pubg
+            SPRING_DATASOURCE_USERNAME: root
+            SPRING_DATASOURCE_PASSWORD: root
+
+    postgres_db:
+        container_name: postgres_pubg
+        image: postgres
+        restart: always
+        shm_size: 128mb
+        environment:
+            POSTGRES_PASSWORD: root
+            POSTGRES_USER: root
+            POSTGRES_DB: pubg
+        ports:
+            - 5432
